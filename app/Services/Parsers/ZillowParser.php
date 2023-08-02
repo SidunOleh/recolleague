@@ -10,6 +10,7 @@ class ZillowParser extends BaseRealEstateParser
 
         $details['ba'] = $this->getBathroomsCount();
         $details['bd'] = $this->getBedroomsCount();
+        // $details['schools'] = $this->getSchools();
 
         return $details;
     }
@@ -36,5 +37,17 @@ class ZillowParser extends BaseRealEstateParser
                 return (int) $node->childNodes->item(0)->textContent;
             }
         }
+    }
+
+    private function getSchools()
+    {
+        $schools = [];
+        $nodeList = $this->parse('.//ul[@id="ds-nearby-schools-list"]');
+        dd($nodeList);
+        foreach ($nodeList as $node) {
+            
+        }
+
+        return $schools;
     }
 }
