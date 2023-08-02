@@ -8,3 +8,5 @@ import './scripts/admin-panel'
 const adminPanel = createApp(adminPanelApp)
 adminPanel.use(adminPanelRouter)
 adminPanel.mount('#admin-panel-app')
+
+console.log(1)
