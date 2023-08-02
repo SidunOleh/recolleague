@@ -59,7 +59,7 @@ class ChatRequest extends Model
         $request['model'] = $this->model;
         $request['messages'][] = [
             'role' => 'system', 
-            'content' => $this->getStyleText($style), 
+            'content' => $this->getStyleText($style) ?? '', 
         ];
         $request['messages'][] = [
             'role' => 'user', 
@@ -77,7 +77,7 @@ class ChatRequest extends Model
         return $request;
     }
 
-    private function requestText($uri)
+    private function requestText($uri): string
     {
         $requestText = preg_replace(
             '/{uri}/', 
@@ -97,15 +97,25 @@ class ChatRequest extends Model
             $details['bd'], 
             $requestText
         );
-    
+        $requestText = preg_replace(
+            '/{schools}/', 
+            array_reduce($details['schools'], function ($schools, $school) {
+                $schools .= "{$school['name']}({$school['rating']}),";
+                return $schools;
+            }), 
+            $requestText
+        );
+
         return $requestText;
     }
 
-    private function getStyleText($styleName)
+    private function getStyleText($styleName): string|null
     {
         foreach ($this->styles as $style) {
             if ($styleName == $style['name']) return $style['text'];
         }
+
+        return null;
     }
 
     public function users(): BelongsToMany
