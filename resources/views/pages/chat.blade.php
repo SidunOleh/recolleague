@@ -36,7 +36,7 @@
                         <option value="" selected>Select description style</option>
 
                         @foreach ($chatRequest->styles ?? [] as $style)
-                            <option value="{{ $style }}">{{ explode( '|', $style)[0] }}</option>
+                            <option value="{{ $style['name'] }}">{{ $style['name'] }}</option>
                         @endforeach
                     </select>
                 </form>

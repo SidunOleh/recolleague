@@ -34,12 +34,19 @@
             </label>
             <div class="d-flex mb-1">
                 <input 
-                    v-model="newStyle" 
+                    v-model="newStyle.name" 
                     type="text" 
                     class="form-control me-2"
                     v-bind:class="{'is-invalid': errors.hasOwnProperty('styles'),}" 
                     id="style" 
-                    placeholder="New style">
+                    placeholder="Style name">
+                <input 
+                    v-model="newStyle.text" 
+                    type="text" 
+                    class="form-control me-2"
+                    v-bind:class="{'is-invalid': errors.hasOwnProperty('styles'),}" 
+                    id="style" 
+                    placeholder="Style text">
                 <button 
                     @click="addStyle" 
                     type="button" 
@@ -51,10 +58,21 @@
             <ul class="list-group styles">
                 <li 
                     class="list-group-item d-flex justify-content-between align-items-center" 
-                    v-for="style of chatRequest.styles">
-                    {{ style }}
+                    v-for="style, i in chatRequest.styles">
+                    <input 
+                        v-model="style.name"
+                        type="text" 
+                        class="form-control me-2"
+                        id="style" 
+                        placeholder="Style name">
+                    <input 
+                        v-model="style.text" 
+                        type="text" 
+                        class="form-control me-2"
+                        id="style" 
+                        placeholder="Style text">
                     <span 
-                        @click="deleteStyle(style)" 
+                        @click="deleteStyle(i)" 
                         class="delete-style text-danger" 
                         title="Delete">
                         x
@@ -152,7 +170,7 @@ export default {
                 frequency_penalty: null,
             },
             errors: {},
-            newStyle: null,
+            newStyle: {},
         }
     },
     methods: {
@@ -170,17 +188,20 @@ export default {
                 })
         },
         addStyle() {
-            if (! this.newStyle) {
+            if (! this.newStyle.name || !this.newStyle.text) {
                 alert('Enter new style.')
                 return
             }
 
-            this.chatRequest.styles.push(this.newStyle)
-            this.newStyle = null
+            this.chatRequest.styles.push({
+                name: this.newStyle.name,
+                text: this.newStyle.text,
+            })
+            this.newStyle = {}
         },
-        deleteStyle(style) {
+        deleteStyle(i) {
             this.chatRequest.styles = 
-                this.chatRequest.styles.filter(item => item != style)
+                this.chatRequest.styles.filter((style, index) => index != i )
         },
         editRequest() {
             this.$emit('loading')
@@ -208,5 +229,7 @@ export default {
 <style>
 .delete-style {
     cursor: pointer;
+    width: 75px;
+    text-align: center;
 }
 </style>

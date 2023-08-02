@@ -57,11 +57,11 @@ class ChatRequest extends Model
     }
 
     private function request($uri, $style)
-    {
+    {;
         $request['model'] = $this->model;
         $request['messages'][] = [
             'role' => 'system', 
-            'content' => $style, 
+            'content' => $this->getStyleText($style), 
         ];
         $request['messages'][] = [
             'role' => 'user', 
@@ -97,6 +97,13 @@ class ChatRequest extends Model
         }
         
         return $requestText;
+    }
+
+    private function getStyleText($styleName)
+    {
+        foreach ($this->styles as $style) {
+            if ($styleName == $style['name']) return $style['text'];
+        }
     }
 
     public function users(): BelongsToMany

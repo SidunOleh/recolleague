@@ -25,7 +25,7 @@ class UpdateRequest extends FormRequest
             'model' => 'required|string',
             'request_text' => 'required|string',
             'styles' => 'sometimes|array',
-            'styles.*' => 'sometimes|string',
+            'styles.*' => 'sometimes|array',
             'temperature' => 'required|numeric|between:0,2',
             'max_tokens' => 'required|integer|min:1|max:4096',
             'presence_penalty' => 'required|numeric|between:-2,2',
