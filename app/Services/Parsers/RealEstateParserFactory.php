@@ -9,7 +9,7 @@ class RealEstateParserFactory
 {
     public static function build(): IRealEstateParser
     {
-        $loader = new SimpleLoader;
+        $loader = new ScrapperAPILoader;
         $parser = new ZillowParser($loader);
 
         return $parser;

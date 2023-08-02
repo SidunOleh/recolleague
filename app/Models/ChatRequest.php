@@ -10,8 +10,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\Auth;
 use App\Services\Parsers\RealEstateParserFactory;
-use App\Services\Parsers\ParsingException;
-use Illuminate\Support\Facades\Log;
 
 class ChatRequest extends Model
 {
@@ -87,15 +85,19 @@ class ChatRequest extends Model
             $this->request_text
         );
         
-        try {
-            $parser = RealEstateParserFactory::build();
-            $details = $parser->propertyDetails($uri);   
-            $requestText .= "Write bathrooms count: {$details['ba']}.";
-            $requestText .= "Write bedrooms count: {$details['bd']}.";
-        } catch (ParsingException $e) {
-            Log::error('Parsing error: ' . $e->getMessage() . ' ' . $uri);
-        }
-        
+        $parser = RealEstateParserFactory::build();
+        $details = $parser->propertyDetails($uri);   
+        $requestText = preg_replace(
+            '/{ba}/', 
+            $details['ba'], 
+            $requestText
+        );
+        $requestText = preg_replace(
+            '/{bd}/', 
+            $details['bd'], 
+            $requestText
+        );
+    
         return $requestText;
     }
 

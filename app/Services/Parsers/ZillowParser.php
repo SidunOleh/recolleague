@@ -6,14 +6,35 @@ class ZillowParser extends BaseRealEstateParser
 {
     public function propertyDetails(string $url): array
     {
-        $nodeList = $this->parse($url, './/span[@data-testid="bed-bath-item"]');
-        $details = [];
-        foreach ($nodeList as $node) {
-            $name = trim($node->childNodes->item(1)->textContent);
-            $value = $node->childNodes->item(0)->textContent;
-            $details[$name] = $value;
-        }
+        $this->load($url);
+
+        $details['ba'] = $this->getBathroomsCount();
+        $details['bd'] = $this->getBedroomsCount();
 
         return $details;
+    }
+
+    private function getBathroomsCount(): int|null
+    {
+        $nodeList = $this->parse('.//span[@data-testid="bed-bath-item"]');
+        foreach ($nodeList as $node) {
+            if ( 
+                trim($node->childNodes->item(1)->textContent) == 'ba' 
+            ) {
+                return (int) $node->childNodes->item(0)->textContent;
+            }
+        }
+    }
+
+    private function getBedroomsCount(): int|null
+    {
+        $nodeList = $this->parse('.//span[@data-testid="bed-bath-item"]');
+        foreach ($nodeList as $node) {
+            if ( 
+                trim($node->childNodes->item(1)->textContent) == 'bd' 
+            ) {
+                return (int) $node->childNodes->item(0)->textContent;
+            }
+        }
     }
 }

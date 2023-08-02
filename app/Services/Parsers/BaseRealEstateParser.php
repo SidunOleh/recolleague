@@ -9,21 +9,32 @@ use DOMXPath;
 
 abstract class BaseRealEstateParser implements IRealEstateParser
 {
-    private ILoader $loader;
+    protected ILoader $loader;
+
+    protected string $html;
 
     public function __construct(ILoader $loader)
     {
         $this->loader = $loader;
+        $this->html = '';
     }
 
-    protected function parse($url, $query): DOMNodeList
+    protected function load($url): string
+    {
+        $html = $this->loader->load($url);
+        $this->html = $html;
+
+        return $this->html;
+    }
+
+    protected function parse($query): DOMNodeList
     {
         $dom = new DOMDocument();
-        @$dom->loadHTML($this->loader->load($url));
+        @$dom->loadHTML($this->html);
 
         $domxpath = new DOMXPath($dom);
         $nodeList = $domxpath->query($query);
-        if (! $nodeList->count()) throw new ParsingException('Not Found');
+        if ($nodeList === false) throw new ParsingException('Parsing error');
 
         return $nodeList;
     }
