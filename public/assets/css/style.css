@@ -2012,7 +2012,8 @@ section {
     }
 }
 
-.changePayWrapper .payCard .left .top, .logo-link {
+.changePayWrapper .payCard .left .top,
+.logo-link {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -2025,7 +2026,8 @@ section {
     gap: 16px;
 }
 
-.changePayWrapper .payCard .left .top .title, .logo-link .title {
+.changePayWrapper .payCard .left .top .title,
+.logo-link .title {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -2052,7 +2054,8 @@ section {
     }
 }
 
-.changePayWrapper .payCard .left .top .title span, .logo-link .title span {
+.changePayWrapper .payCard .left .top .title span,
+.logo-link .title span {
     font-weight: 400;
 }
 
@@ -2240,4 +2243,10 @@ section {
 .coupon {
     display: flex;
     flex-direction: column;
+}
+
+.answer .style {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
 }

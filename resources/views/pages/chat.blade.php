@@ -33,7 +33,7 @@
                 </div>
                 <form action="{{ route('chat.request') }}" method="GET" id="chat-form">
                     <select name="style" class="style-answer" id="style">
-                        <option value="" selected>Select description style</option>
+                        <option value="No" selected>Select description style</option>
 
                         @foreach ($chatRequest->styles ?? [] as $style)
                             <option value="{{ $style['name'] }}">{{ $style['name'] }}</option>

@@ -99,9 +99,16 @@ $(document).ready(function() {
                     location.href = res.location
                     return
                 }
-                
+
                 $('.generated-text .text')
-                    .prepend(`<p class="answer">${res.response}</p>`)
+                    .prepend(
+                        `<p class="answer">
+                        <span class="style">
+                            ${$("#style :selected").val()} Style
+                        </span>
+                        ${res.response}
+                    </p>`
+                    )
                 $('.chat-main .chat-container').addClass('open')
                 $('.chat-main').removeClass('loading')
             })
