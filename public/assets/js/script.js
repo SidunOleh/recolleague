@@ -132,7 +132,7 @@ $(document).ready(function() {
     $('#copyButton').click(function() {
         let text = $('#textBlock .answer').text()
 
-        let tempInput = $('<input>')
+        let tempInput = $('<textarea>')
         $('body').append(tempInput)
 
         tempInput.val(text).select()
