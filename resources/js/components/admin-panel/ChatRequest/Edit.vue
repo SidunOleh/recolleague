@@ -24,7 +24,7 @@
                 class="form-control" 
                 v-bind:class="{'is-invalid': errors.hasOwnProperty('request_text'),}" 
                 id="text" 
-                rows="5" 
+                rows="13" 
                 placeholder="Contents of request message"></textarea>
         </div>
 

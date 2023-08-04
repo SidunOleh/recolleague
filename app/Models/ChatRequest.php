@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\Auth;
 use App\Services\Parsers\RealEstateParserFactory;
+use Illuminate\Support\Facades\Blade;
 
 class ChatRequest extends Model
 {
@@ -78,33 +79,19 @@ class ChatRequest extends Model
     }
 
     private function requestText($uri): string
-    {
-        $requestText = preg_replace(
-            '/{uri}/', 
-            $uri, 
-            $this->request_text
-        );
-        
+    {        
         $parser = RealEstateParserFactory::build();
-        $details = $parser->propertyDetails($uri);   
-        $requestText = preg_replace(
-            '/{ba}/', 
-            $details['ba'], 
-            $requestText
-        );
-        $requestText = preg_replace(
-            '/{bd}/', 
-            $details['bd'], 
-            $requestText
-        );
-        $requestText = preg_replace(
-            '/{schools}/', 
-            array_reduce($details['schools'], function ($schools, $school) {
-                $schools .= "{$school['name']}({$school['rating']}),";
+        $details = $parser->propertyDetails($uri);
+        
+        $requestText = Blade::render($this->request_text, [
+            'uri' => $uri,
+            'ba' => $details['ba'],
+            'bd' => $details['bd'],
+            'schools' => array_reduce($details['schools'], function ($schools, $school) {
+                $schools .= "{$school['name']}({$school['rating']}), ";
                 return $schools;
-            }), 
-            $requestText
-        );
+            })
+        ]);
 
         return $requestText;
     }
@@ -112,7 +99,9 @@ class ChatRequest extends Model
     private function getStyleText($styleName): string|null
     {
         foreach ($this->styles as $style) {
-            if ($styleName == $style['name']) return $style['text'];
+            if ($styleName == $style['name']) {
+                return $style['text'];
+            }
         }
 
         return null;
