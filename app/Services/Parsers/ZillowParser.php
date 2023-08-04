@@ -47,8 +47,8 @@ class ZillowParser extends BaseRealEstateParser
     {
         $node = $this->parse('.//script[@id="__NEXT_DATA__"]')->item(0);
         preg_match('/\\\"schools\\\":(\[.*?\])/', $node->textContent ?? '', $json);
-        $schools = json_decode(stripslashes($json[1]), true);
+        $schools = json_decode(stripslashes($json[1] ?? ''), true);
 
-        return $schools ?? [];
+        return $schools ?: [];
     }
 }
