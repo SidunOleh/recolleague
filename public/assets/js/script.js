@@ -130,7 +130,7 @@ $(document).ready(function() {
     })
 
     $('#copyButton').click(function() {
-        let text = $('#textBlock .answer').text()
+        let text = $('#textBlock .answer').text().trim()
 
         let tempInput = $('<textarea>')
         $('body').append(tempInput)
