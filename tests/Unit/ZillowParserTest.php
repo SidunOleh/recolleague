@@ -15,13 +15,13 @@ class ZillowParserTest extends TestCase
         $parser = new ZillowParser($mockLoader);
         $details = $parser->propertyDetails('https://www.zillow.com/homedetails/1110-William-St-Hewlett-NY-11557/31258929_zpid/');
 
-        $this->assertArrayHasKey('ba',$details);
-        $this->assertArrayHasKey('bd',$details);
-        $this->assertArrayHasKey('schools',$details);
-        $this->assertArrayHasKey('type',$details);
-        $this->assertArrayHasKey('family_room',$details);
-        $this->assertArrayHasKey('living_room',$details);
-        $this->assertArrayHasKey('kitchen',$details);
-        $this->assertArrayHasKey('fireplace',$details);
+        $this->assertArrayHasKey('ba', $details);
+        $this->assertArrayHasKey('bd', $details);
+        $this->assertArrayHasKey('schools', $details);
+        $this->assertArrayHasKey('type', $details);
+        $this->assertArrayHasKey('family_room', $details);
+        $this->assertArrayHasKey('living_room', $details);
+        $this->assertArrayHasKey('kitchen', $details);
+        $this->assertArrayHasKey('fireplace', $details);
     }
 }
