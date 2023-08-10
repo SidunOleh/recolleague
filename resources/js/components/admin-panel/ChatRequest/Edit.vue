@@ -27,7 +27,7 @@
                         type="text" 
                         class="form-control request-name"
                         v-bind:class="{'is-invalid': errors.hasOwnProperty('request_text'),}" 
-                        placeholder="Request name"
+                        placeholder="Home type"
                         @focusin="focusinRequestText">
                         <span 
                             @click="deleteRequestText(i)" 
