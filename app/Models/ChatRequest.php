@@ -99,8 +99,6 @@ class ChatRequest extends Model
             'fireplace' => $details['fireplace'],
         ]);
 
-        dd($requestText);
-
         return $requestText;
     }
 
