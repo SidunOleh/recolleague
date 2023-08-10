@@ -11,6 +11,11 @@ class ZillowParser extends BaseRealEstateParser
         $details['ba'] = $this->getBathroomsCount();
         $details['bd'] = $this->getBedroomsCount();
         $details['schools'] = $this->getSchools();
+        $details['type'] = $this->homeType();
+        $details['family_room'] = $this->hasFamilyRoom();
+        $details['living_room'] = $this->hasLivingRoom();
+        $details['kitchen'] = $this->hasKitchen();
+        $details['fireplace'] = $this->hasFireplace();
 
         return $details;
     }
@@ -50,5 +55,41 @@ class ZillowParser extends BaseRealEstateParser
         $schools = json_decode(stripslashes($json[1] ?? ''), true);
 
         return $schools ?: [];
+    }
+
+    private function homeType(): string|null
+    {
+        $node = $this->parse('.//ul[@class="dpf__sc-xzpkxd-0 dFxsBL"]/li[1]/span[2]')->item(0);
+        
+        return $node->textContent ?? null;
+    }
+
+    private function hasFamilyRoom(): bool
+    {
+        $node = $this->parse('.//script[@id="__NEXT_DATA__"]')->item(0);
+
+        return preg_match('/\\\"roomType\\\":\\\"FamilyRoom\\\"/', $node->textContent ?? '');
+    }
+
+    private function hasLivingRoom(): bool
+    {
+        $node = $this->parse('.//script[@id="__NEXT_DATA__"]')->item(0);
+
+        return preg_match('/\\\"roomType\\\":\\\"LivingRoom\\\"/', $node->textContent ?? '');
+    }
+
+    private function hasKitchen(): bool
+    {
+        $node = $this->parse('.//script[@id="__NEXT_DATA__"]')->item(0);
+
+        return preg_match('/\\\"roomType\\\":\\\"Kitchen\\\"/', $node->textContent ?? '');
+    }
+
+    private function hasFireplace(): bool
+    {
+        $node = $this->parse('.//script[@id="__NEXT_DATA__"]')->item(0);
+        preg_match('/\\\"hasFireplace\\\":(.*?),/', $node->textContent ?? '', $hasFireplace);
+
+        return ($hasFireplace[1] ?? '') == 'true' ? true : false;
     }
 }

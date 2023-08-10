@@ -27,6 +27,7 @@ class ChatRequest extends Model
     ];
 
     protected $casts = [
+        'request_text' => 'json',
         'styles' => 'json',
         'temperature' => 'float',
         'max_tokens' => 'integer',
@@ -35,10 +36,11 @@ class ChatRequest extends Model
     ];
     
     protected $attributes = [
+        'request_text' => '[]',
         'styles' => '[]',
     ];
 
-    public function send($uri, $style = '')
+    public function send($uri, $style = ''): string
     {
         $ai = new OpenAi(env('OPENAI_API_KEY'));
         
@@ -55,8 +57,8 @@ class ChatRequest extends Model
         return preg_replace("/\\\n/", "\n<br>", $response['choices'][0]['message']['content']);
     }
 
-    private function request($uri, $style)
-    {;
+    private function request($uri, $style): array
+    {
         $request['model'] = $this->model;
         $request['messages'][] = [
             'role' => 'system', 
@@ -83,15 +85,21 @@ class ChatRequest extends Model
         $parser = RealEstateParserFactory::build();
         $details = $parser->propertyDetails($uri);
         
-        $requestText = Blade::render($this->request_text, [
+        $requestText = Blade::render($this->getRequestText($details['type']), [
             'uri' => $uri,
             'ba' => $details['ba'],
             'bd' => $details['bd'],
             'schools' => array_reduce($details['schools'], function ($schools, $school) {
                 $schools .= "{$school['name']}({$school['rating']}), ";
                 return $schools;
-            })
+            }),
+            'familyRoom' => $details['family_room'],
+            'livingRoom' => $details['living_room'],
+            'kitchen' => $details['kitchen'],
+            'fireplace' => $details['fireplace'],
         ]);
+
+        dd($requestText);
 
         return $requestText;
     }
@@ -105,6 +113,22 @@ class ChatRequest extends Model
         }
 
         return null;
+    }
+
+    private function getRequestText($requestTextName): string
+    {
+        $defaultRequestText = '';
+        foreach ($this->request_text as $requestText) {
+            if ($requestText['name'] == $requestTextName) {
+                return $requestText['text'];
+            }
+            
+            if ($requestText['name'] == 'Default') {
+                $defaultRequestText = $requestText['text'];
+            }
+        }
+
+        return $defaultRequestText;
     }
 
     public function users(): BelongsToMany

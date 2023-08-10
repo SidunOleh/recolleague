@@ -23,7 +23,8 @@ class UpdateRequest extends FormRequest
     {
         return [
             'model' => 'required|string',
-            'request_text' => 'required|string',
+            'request_text' => 'required|array',
+            'styles.*' => 'required|string',
             'styles' => 'sometimes|array',
             'styles.*' => 'sometimes|array',
             'temperature' => 'required|numeric|between:0,2',

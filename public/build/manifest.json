@@ -1,6 +1,6 @@
 {
-  "_laravel-vue-pagination.es-71ea7c69.js": {
-    "file": "assets/laravel-vue-pagination.es-71ea7c69.js",
+  "_laravel-vue-pagination.es-06037cf5.js": {
+    "file": "assets/laravel-vue-pagination.es-06037cf5.js",
     "imports": [
       "resources/js/app.js"
     ]
@@ -25,7 +25,7 @@
       "resources/js/components/admin-panel/Coupons/Index.vue",
       "resources/js/components/admin-panel/Content/Edit.vue"
     ],
-    "file": "assets/app-0de93b8b.js",
+    "file": "assets/app-525eaa35.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },
@@ -37,7 +37,7 @@
     "css": [
       "assets/LogIn-dbe132c2.css"
     ],
-    "file": "assets/LogIn-cbd9b0ad.js",
+    "file": "assets/LogIn-3891f9f0.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -45,14 +45,14 @@
     "src": "resources/js/components/admin-panel/Auth/LogIn.vue"
   },
   "resources/js/components/admin-panel/ChatRequest/Edit.css": {
-    "file": "assets/Edit-093791bf.css",
+    "file": "assets/Edit-a8517096.css",
     "src": "resources/js/components/admin-panel/ChatRequest/Edit.css"
   },
   "resources/js/components/admin-panel/ChatRequest/Edit.vue": {
     "css": [
-      "assets/Edit-093791bf.css"
+      "assets/Edit-a8517096.css"
     ],
-    "file": "assets/Edit-c511479a.js",
+    "file": "assets/Edit-c6ce92e0.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -67,7 +67,7 @@
     "css": [
       "assets/Edit-d4844d30.css"
     ],
-    "file": "assets/Edit-4adac4c6.js",
+    "file": "assets/Edit-399bbb00.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -75,16 +75,16 @@
     "src": "resources/js/components/admin-panel/Content/Edit.vue"
   },
   "resources/js/components/admin-panel/Coupons/Index.vue": {
-    "file": "assets/Index-67edf021.js",
+    "file": "assets/Index-5a8a1d3c.js",
     "imports": [
-      "_laravel-vue-pagination.es-71ea7c69.js",
+      "_laravel-vue-pagination.es-06037cf5.js",
       "resources/js/app.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/components/admin-panel/Coupons/Index.vue"
   },
   "resources/js/components/admin-panel/Dashboard.vue": {
-    "file": "assets/Dashboard-f9a2ce63.js",
+    "file": "assets/Dashboard-36f520d3.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -99,9 +99,9 @@
     "css": [
       "assets/Index-954b04a7.css"
     ],
-    "file": "assets/Index-a061d483.js",
+    "file": "assets/Index-bde3d992.js",
     "imports": [
-      "_laravel-vue-pagination.es-71ea7c69.js",
+      "_laravel-vue-pagination.es-06037cf5.js",
       "resources/js/app.js"
     ],
     "isDynamicEntry": true,

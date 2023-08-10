@@ -19,13 +19,32 @@
             <label for="text" class="mb-1">
                 Request text
             </label>
-            <textarea 
-                v-model="chatRequest.request_text" 
-                class="form-control" 
-                v-bind:class="{'is-invalid': errors.hasOwnProperty('request_text'),}" 
-                id="text" 
-                rows="13" 
-                placeholder="Contents of request message"></textarea>
+
+            <div class="mb-3" v-for="request_text, i in chatRequest.request_text">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <input 
+                        v-model="request_text.name" 
+                        type="text" 
+                        class="form-control request-name"
+                        v-bind:class="{'is-invalid': errors.hasOwnProperty('request_text'),}" 
+                        placeholder="Request name"
+                        @focusin="focusinRequestText">
+                        <span 
+                            @click="deleteRequestText(i)" 
+                            class="delete text-danger" 
+                            title="Delete">
+                            x
+                        </span>
+                </div>
+                <textarea 
+                    v-model="request_text.text" 
+                    :class="'form-control request-text' + (i == 0 ? '' : ' d-none')" 
+                    v-bind:class="{'is-invalid': errors.hasOwnProperty('request_text'),}"
+                    rows="13" 
+                    placeholder="Request text"></textarea>
+            </div>
+
+            <div class="btn btn-primary" @click="addNewRequestText">Add new request text</div>
         </div>
 
         <div class="form-group mb-4">
@@ -73,7 +92,7 @@
                         placeholder="Style text">
                     <span 
                         @click="deleteStyle(i)" 
-                        class="delete-style text-danger" 
+                        class="delete text-danger" 
                         title="Delete">
                         x
                     </span>
@@ -162,7 +181,7 @@ export default {
         return {
             chatRequest: {
                 model: null,
-                request_text: null,
+                request_text: [],
                 styles: [],
                 temperature: null,
                 max_tokens: null,
@@ -216,6 +235,27 @@ export default {
                     this.$emit('loaded')
                 })
         },
+        addNewRequestText() {
+            this.chatRequest.request_text.push({
+                name: '',
+                text: '',
+            })
+        },
+        deleteRequestText(i) {
+            this.chatRequest.request_text = 
+                this.chatRequest.request_text.filter((request_text, index) => index != i )
+        },
+        focusinRequestText(e) {
+            const texts = document.getElementsByClassName('request-text')
+            for (const text of texts) {
+                text.classList.add('d-none')
+            }
+            for (const el of e.target.parentElement.parentElement.children) {
+                if (el.tagName == 'TEXTAREA') {
+                    el.classList.remove('d-none')
+                }
+            }
+        },
     },
     mounted() {
         this.getChatRequest()
@@ -227,7 +267,7 @@ export default {
 </script>
 
 <style>
-.delete-style {
+.delete {
     cursor: pointer;
     width: 75px;
     text-align: center;
