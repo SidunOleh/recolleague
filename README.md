@@ -14,6 +14,6 @@
 - Coupons
 - Tracking user activity
 
-![alt text](https://github.com/SidunOleh/recolleague/blob/main/public/img/rec.png?raw=true)
+![alt text](https://github.com/SidunOleh/recolleague/tree/main/public/assets/img/rec.png?raw=true)
 ### Admin Panel
-![alt text](https://github.com/SidunOleh/recolleague/blob/main/public/img/rec-admin.png?raw=true)
+![alt text](https://github.com/SidunOleh/recolleague/tree/main/public/assets/img/rec-admin.png?raw=true)
