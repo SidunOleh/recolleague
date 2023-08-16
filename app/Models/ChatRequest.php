@@ -124,7 +124,7 @@ class ChatRequest extends Model
                 return $requestText['text'];
             }
             
-            if ($requestText['name'] == 'Default') {
+            if (trim($requestText['name']) == 'Default') {
                 $this->houseType = 'Default';
                 $defaultRequestText = $requestText['text'];
             }
