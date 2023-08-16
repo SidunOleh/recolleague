@@ -117,7 +117,7 @@ class ChatRequest extends Model
     {
         $defaultRequestText = '';
         foreach ($this->request_text as $requestText) {
-            if ($requestText['name'] == $requestTextName) {
+            if (preg_match('/' . trim($requestText['name']) . '/i', $requestTextName)) {
                 return $requestText['text'];
             }
             
