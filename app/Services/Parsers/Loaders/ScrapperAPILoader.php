@@ -13,7 +13,7 @@ class ScrapperAPILoader implements ILoader
             'url' => $url,
             'render' => 'true',
         ]);
-        $response = Http::get($url);
+        $response = Http::retry(2)->get($url);
         
         if ($response->getStatusCode() != 200) {
             throw new LoadingException(
