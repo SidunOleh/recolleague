@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ChatRequest\IndexSendingsController;
 use App\Http\Controllers\Admin\ChatRequest\LatestSendingsController;
 use App\Http\Controllers\Admin\ChatRequest\ShowController;
 use App\Http\Controllers\Admin\ChatRequest\UpdateController;
@@ -33,6 +34,9 @@ Route::prefix('/admin')->middleware(['auth:sanctum', 'user.admin',])->name('admi
             ->name('update');
         Route::get('/sendings/latest', LatestSendingsController::class)
             ->name('sendings.latest');
+        Route::get('/sendings/{page?}', IndexSendingsController::class)
+            ->where('page', '[0-9]+')
+            ->name('sendings.index');
     });
 
     Route::prefix('/users')->name('users.')->group(function () {

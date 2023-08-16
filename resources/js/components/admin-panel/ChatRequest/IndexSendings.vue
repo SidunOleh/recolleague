@@ -14,32 +14,42 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="latestSending in latestSendings">
-                    <td>{{ latestSending.email}}</td>
-                    <td>{{ latestSending.uri }}</td>
-                    <td>{{ latestSending.style }}</td>
-                    <td>{{ latestSending.house_type }}</td>
-                    <td>{{ latestSending.sent }}</td>
+                <tr v-for="indexSending in indexSendings.data">
+                    <td>{{ indexSending.email}}</td>
+                    <td>{{ indexSending.uri }}</td>
+                    <td>{{ indexSending.style }}</td>
+                    <td>{{ indexSending.house_type }}</td>
+                    <td>{{ indexSending.sent }}</td>
                 </tr>
             </tbody>
         </table>
+
+        <Bootstrap5Pagination
+            :data="indexSendings"
+            @pagination-change-page="getIndexSendings"/>
 
     </div>
 </template>
 
 <script>
+import { Bootstrap5Pagination } from 'laravel-vue-pagination'
+
 export default {
+    components: {
+        Bootstrap5Pagination
+    },
     data() {
         return {
-            latestSendings: [],
+            indexSendings: [],
         }
     },
     methods: {
-        getLatestSendings() {
+        getIndexSendings(page = 1) {
             this.$emit('loading')
-            axios.get('/api/admin/chat-request/sendings/latest')
+            axios.get(`/api/admin/chat-request/sendings/${page}`)
                 .then(res => {
-                    this.latestSendings = res.data.data
+                    console.log(res)
+                    this.indexSendings = res.data
                 })
                 .catch(res => {
                     alert('Something goes wrong. Try again.')
@@ -50,7 +60,7 @@ export default {
         }
     },
     mounted() {
-        this.getLatestSendings()
+        this.getIndexSendings()
     },
     unmounted() {
         this.$emit('loaded')

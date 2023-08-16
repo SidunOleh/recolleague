@@ -21,14 +21,17 @@ class ChatRequestSent
 
     public $style;
 
+    public $houseType;
+
     /**
      * Create a new event instance.
      */
-    public function __construct(User|null $user, string $uri, string $style)
+    public function __construct(User|null $user, string $uri, string $style, string $houseType)
     {
         $this->user = $user;
         $this->uri = $uri;
         $this->style = $style;
+        $this->houseType = $houseType;
     }
 
     /**

@@ -40,6 +40,8 @@ class ChatRequest extends Model
         'styles' => '[]',
     ];
 
+    private $houseType;
+
     public function send($uri, $style = ''): string
     {
         $ai = new OpenAi(env('OPENAI_API_KEY'));
@@ -48,7 +50,7 @@ class ChatRequest extends Model
         $response = $ai->chat($request);
         $response = json_decode($response, true);
 
-        ChatRequestSent::dispatch(Auth::user(), $uri, $style);
+        ChatRequestSent::dispatch(Auth::user(), $uri, $style, $this->houseType);
 
         if (isset($response['error'])) {
             throw new ChatRequestException($response['error']['message']);
@@ -118,10 +120,12 @@ class ChatRequest extends Model
         $defaultRequestText = '';
         foreach ($this->request_text as $requestText) {
             if (preg_match('/' . trim($requestText['name']) . '/i', $requestTextName)) {
+                $this->houseType = $requestText['name'];
                 return $requestText['text'];
             }
             
             if ($requestText['name'] == 'Default') {
+                $this->houseType = 'Default';
                 $defaultRequestText = $requestText['text'];
             }
         }

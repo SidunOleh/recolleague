@@ -34,6 +34,7 @@ class SaveListener
             'chat_request_id' => $chatRequest->id,
             'uri' => $event->uri,
             'style' => $event->style,
+            'house_type' => $event->houseType,
         ]);
     }
 }

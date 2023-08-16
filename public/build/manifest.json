@@ -1,6 +1,6 @@
 {
-  "_laravel-vue-pagination.es-c03b3d3f.js": {
-    "file": "assets/laravel-vue-pagination.es-c03b3d3f.js",
+  "_laravel-vue-pagination.es-30e892f9.js": {
+    "file": "assets/laravel-vue-pagination.es-30e892f9.js",
     "imports": [
       "resources/js/app.js"
     ]
@@ -25,7 +25,7 @@
       "resources/js/components/admin-panel/Coupons/Index.vue",
       "resources/js/components/admin-panel/Content/Edit.vue"
     ],
-    "file": "assets/app-e996b28d.js",
+    "file": "assets/app-b647b929.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },
@@ -37,7 +37,7 @@
     "css": [
       "assets/LogIn-dbe132c2.css"
     ],
-    "file": "assets/LogIn-32c36412.js",
+    "file": "assets/LogIn-4bb87aca.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -52,7 +52,7 @@
     "css": [
       "assets/Edit-a8517096.css"
     ],
-    "file": "assets/Edit-5abb8261.js",
+    "file": "assets/Edit-41ffa1c4.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -67,7 +67,7 @@
     "css": [
       "assets/Edit-d4844d30.css"
     ],
-    "file": "assets/Edit-d2fcb041.js",
+    "file": "assets/Edit-791c5fcd.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -75,17 +75,18 @@
     "src": "resources/js/components/admin-panel/Content/Edit.vue"
   },
   "resources/js/components/admin-panel/Coupons/Index.vue": {
-    "file": "assets/Index-aa222e9f.js",
+    "file": "assets/Index-f4bc3ec7.js",
     "imports": [
-      "_laravel-vue-pagination.es-c03b3d3f.js",
+      "_laravel-vue-pagination.es-30e892f9.js",
       "resources/js/app.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/components/admin-panel/Coupons/Index.vue"
   },
   "resources/js/components/admin-panel/Dashboard.vue": {
-    "file": "assets/Dashboard-c7727f48.js",
+    "file": "assets/Dashboard-88bc554d.js",
     "imports": [
+      "_laravel-vue-pagination.es-30e892f9.js",
       "resources/js/app.js"
     ],
     "isDynamicEntry": true,
@@ -99,9 +100,9 @@
     "css": [
       "assets/Index-954b04a7.css"
     ],
-    "file": "assets/Index-e1f4ac3b.js",
+    "file": "assets/Index-fd0e2168.js",
     "imports": [
-      "_laravel-vue-pagination.es-c03b3d3f.js",
+      "_laravel-vue-pagination.es-30e892f9.js",
       "resources/js/app.js"
     ],
     "isDynamicEntry": true,

@@ -15,10 +15,10 @@ class ChatRequestUserResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            
             'email' => $this->user->email ?? '',
             'uri' => $this->uri,
             'style' => $this->style,
+            'house_type' => $this->house_type,
             'sent' => $this->created_at->format('M d, Y H:i')
         ];
     }

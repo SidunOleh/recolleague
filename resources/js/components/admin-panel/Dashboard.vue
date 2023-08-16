@@ -1,13 +1,13 @@
 <template>
-    <LatestSendings />
+    <IndexSendings />
 </template>
 
 <script>
-import LatestSendings from './ChatRequest/LatestSendings.vue'
+import IndexSendings from './ChatRequest/IndexSendings.vue'
 
 export default {
     components: {
-        LatestSendings
-    }
+        IndexSendings,
+    },
 }
 </script>
