@@ -32,8 +32,8 @@ Route::prefix('/admin')->middleware(['auth:sanctum', 'user.admin',])->name('admi
             ->name('show');
         Route::put('/', UpdateController::class)
             ->name('update');
-        Route::get('/sendings/latest', LatestSendingsController::class)
-            ->name('sendings.latest');
+        // Route::get('/sendings/latest', LatestSendingsController::class)
+        //     ->name('sendings.latest');
         Route::get('/sendings/{page?}', IndexSendingsController::class)
             ->where('page', '[0-9]+')
             ->name('sendings.index');
