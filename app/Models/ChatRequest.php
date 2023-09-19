@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\Auth;
 use App\Services\Parsers\RealEstateParserFactory;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Cache;
 
 class ChatRequest extends Model
 {
@@ -85,7 +86,10 @@ class ChatRequest extends Model
     private function requestText($uri): string
     {        
         $parser = RealEstateParserFactory::build();
-        $details = $parser->propertyDetails($uri);
+        if (! $details = Cache::get($uri)) {
+            $details = $parser->propertyDetails($uri);
+            Cache::set($uri, $details, now()->addDay());
+        }
         
         $requestText = Blade::render($this->getRequestText($details['type']), [
             'uri' => $uri,
