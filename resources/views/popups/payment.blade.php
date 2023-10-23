@@ -94,7 +94,7 @@
   
                         let setupIntent = null, 
                             error = null
-                        if (! setupIntent && ! error) {
+                        if (! setupIntent) {
                             const res = await stripe.confirmCardSetup(
                                 clientSecret, 
                                 {
