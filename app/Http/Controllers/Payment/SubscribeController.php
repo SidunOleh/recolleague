@@ -20,7 +20,7 @@ class SubscribeController extends Controller
         if ( $couponStr and ! $coupon ) {
             return response([
                 'error' => 'Error. Coupon is invalid.',
-            ]);
+            ], 400);
         }
 
         $paymentMethodId = $request->input('payment_method_id');
@@ -30,6 +30,8 @@ class SubscribeController extends Controller
         );
         if ($coupon) {
             $subscription->trialDays(30)->create($paymentMethodId);
+            $coupon->user()->associate(Auth::user());
+            $coupon->save();
         } else {
             $subscription->create($paymentMethodId);
         }
