@@ -83,6 +83,8 @@
                     cardElement.mount('#card-element')
 
                     const payForm = document.getElementById('pay-form')
+                    let setupIntent = null, 
+                            error = null
                     payForm.addEventListener('submit', async e => {
                         e.preventDefault();
 
@@ -92,8 +94,6 @@
                         const clientSecret = $('#card-button').attr('data-secret')
                         const cardHolderName = $('#card-holder-name')
   
-                        let setupIntent = null, 
-                            error = null
                         if (! setupIntent) {
                             const res = await stripe.confirmCardSetup(
                                 clientSecret, 
