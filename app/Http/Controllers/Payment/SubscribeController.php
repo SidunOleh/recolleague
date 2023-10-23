@@ -26,7 +26,7 @@ class SubscribeController extends Controller
         $paymentMethodId = $request->input('payment_method_id');
 
         $subscription = Auth::user()->newSubscription(
-            'default', 'price_1NRjjYJD6zVsEplV4tD9GD5d'
+            'default', 'price_1NRjiOJD6zVsEplV6p2xSVKp'
         );
         if ($coupon) {
             $subscription->trialDays(30)->create($paymentMethodId);
