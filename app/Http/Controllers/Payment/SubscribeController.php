@@ -14,7 +14,7 @@ class SubscribeController extends Controller
         $paymentMethodId = $request->input('payment_method_id');
 
         Auth::user()->newSubscription(
-            'default', 'price_1NRjiOJD6zVsEplV6p2xSVKp'
+            'default', 'price_1NRjjYJD6zVsEplV4tD9GD5d'
         )->create($paymentMethodId);
 
         Subscribed::dispatch(Auth::user());
