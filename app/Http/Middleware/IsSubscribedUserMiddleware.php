@@ -19,7 +19,7 @@ class IsSubscribedUserMiddleware
         if (
             $user = Auth::user() and
             ! $user->subscribed('default') and
-            ! $user->coupons()->where('status', true)->count() and
+            // ! $user->coupons()->where('status', true)->count() and
             ! $user->is_admin
         ) {
             return $request->ajax() ? 

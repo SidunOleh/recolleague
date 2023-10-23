@@ -19,7 +19,7 @@ class SendController extends Controller
             $data['style'] ?? '',
         );
 
-        Auth::user()->deactivateCoupon();
+        // Auth::user()->deactivateCoupon();
 
         return response([
             'response' => $response,

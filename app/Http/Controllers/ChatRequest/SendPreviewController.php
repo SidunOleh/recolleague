@@ -30,8 +30,8 @@ class SendPreviewController extends Controller
         if (
             $user = auth()->user() and
             (
-                $user->subscribed('default') or
-                $user->coupons()->where('status', true)->count()
+                $user->subscribed('default') 
+                // or $user->coupons()->where('status', true)->count()
             )
         ) {
             $status = 302;
