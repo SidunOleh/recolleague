@@ -114,7 +114,7 @@
                             $.post('/payment/subscribe', {
                                 payment_method_id: setupIntent.payment_method,
                                 _token: '<?php echo csrf_token() ?>',
-                                coupon: $('#coupon').value(),
+                                coupon: $('#coupon').val(),
                             }).done(res => {
                                 location.href = '/chat'
                             }).fail(xhr => {
