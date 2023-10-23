@@ -29,7 +29,7 @@ class SubscribeController extends Controller
             'default', 'price_1NRjjYJD6zVsEplV4tD9GD5d'
         );
         if ($coupon) {
-            $subscription->trialDays(30)->create($paymentMethodId);
+            $subscription->trialDays(1)->create($paymentMethodId);
             $coupon->user()->associate(Auth::user());
             $coupon->save();
         } else {
