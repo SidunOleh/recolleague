@@ -92,23 +92,25 @@
                         const clientSecret = $('#card-button').attr('data-secret')
                         const cardHolderName = $('#card-holder-name')
   
-                        const {
-                            setupIntent,
-                            error
-                        } = await stripe.confirmCardSetup(
-                            clientSecret, 
-                            {
-                                payment_method: {
-                                    card: cardElement,
-                                    billing_details: {
-                                        name: cardHolderName.val(),
+                        let setupIntent = null, 
+                            error = null
+                        if (! setupIntent && ! error) {
+                            const res = await stripe.confirmCardSetup(
+                                clientSecret, 
+                                {
+                                    payment_method: {
+                                        card: cardElement,
+                                        billing_details: {
+                                            name: cardHolderName.val(),
+                                        },
                                     },
-                                },
-                            }
-                        )
+                                }
+                            )
+                            setupIntent = res.setupIntent
+                            error = res.error
+                        }
 
                         if (error) {
-                            alert(error.message)
                             card.removeClass('loading')
                         } else {
                             $.post('/payment/subscribe', {
