@@ -43,6 +43,10 @@
 
                     <input id="card-holder-name" type="text" placeholder="Card holder name">
 
+                    <div class="coupon">
+                        <input id="coupon" type="text" placeholder="Enter coupon for trial period">
+                    </div>
+
                     <div class="terms">
                         <input type="checkbox" id="terms" name="terms" required />
                         <label for="terms">I accept the
@@ -110,10 +114,16 @@
                             $.post('/payment/subscribe', {
                                 payment_method_id: setupIntent.payment_method,
                                 _token: '<?php echo csrf_token() ?>',
+                                coupon: $('#coupon').value(),
                             }).done(res => {
                                 location.href = '/chat'
-                            }).fail(res => {
-                                alert('Something goes wrong. Try again.')
+                            }).fail(xhr => {
+                                const res = JSON.parse(xhr.responseText)
+                                if (res.error) {
+                                    alert(res.error)
+                                } else {
+                                    alert('Something goes wrong. Try again.')
+                                }
                                 
                                 card.removeClass('loading')
                             })
@@ -121,13 +131,6 @@
                     })
                 </script>
 
-            </div>
-
-            <div class="or">-OR-</div>
-
-            <div class="coupon">
-                <input id="coupon" type="text" placeholder="Enter coupon">
-                <button id="apply-coupon-btn" class="btn">Apply</button>
             </div>
         
         </div>

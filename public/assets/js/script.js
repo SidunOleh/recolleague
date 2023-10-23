@@ -255,21 +255,21 @@ $(document).ready(function() {
     })
 
     // apply coupon
-    $('#apply-coupon-btn').click(applyCoupon)
+    // $('#apply-coupon-btn').click(applyCoupon)
 
-    function applyCoupon(e) {
-        coupon = $('#coupon').val()
-        if (!(coupon = $('#coupon').val())) {
-            alert('Enter coupon.')
-            return
-        }
+    // function applyCoupon(e) {
+    //     coupon = $('#coupon').val()
+    //     if (!(coupon = $('#coupon').val())) {
+    //         alert('Enter coupon.')
+    //         return
+    //     }
 
-        $.post('/coupons/apply', { coupon })
-            .then(res => {
-                location.href = '/chat'
-            })
-            .catch(res => {
-                alert('Coupon is invalid.')
-            })
-    }
+    //     $.post('/coupons/apply', { coupon })
+    //         .then(res => {
+    //             location.href = '/chat'
+    //         })
+    //         .catch(res => {
+    //             alert('Coupon is invalid.')
+    //         })
+    // }
 })

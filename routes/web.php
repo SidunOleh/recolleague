@@ -66,9 +66,9 @@ Route::prefix('/payment')->middleware(['auth',])->name('payment.')->group(functi
         ->name('update');
 });
 
-Route::post('/coupons/apply', ApplyController::class)
-    ->middleware(['auth', 'user.active',])
-    ->name('coupons.apply');
+// Route::post('/coupons/apply', ApplyController::class)
+//     ->middleware(['auth', 'user.active',])
+//     ->name('coupons.apply');
 
 Route::name('pages.')->group(function () {
     Route::get('/', HomeController::class)
