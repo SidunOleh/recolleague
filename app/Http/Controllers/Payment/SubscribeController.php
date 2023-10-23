@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Payment;
 use App\Events\Subscribed;
 use App\Http\Controllers\Controller;
 use App\Models\Coupon;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -30,7 +29,7 @@ class SubscribeController extends Controller
             'default', 'price_1NRjjYJD6zVsEplV4tD9GD5d'
         );
         if ($coupon) {
-            $subscription->trialUntil(Carbon::now()->addMinute())->create($paymentMethodId);
+            $subscription->trialDays(30)->create($paymentMethodId);
             $coupon->status = false;
             $coupon->user()->associate(Auth::user());
             $coupon->save();
