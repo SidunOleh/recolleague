@@ -30,7 +30,6 @@ class SubscribeController extends Controller
         );
         if ($coupon) {
             $subscription->trialDays(30)->create($paymentMethodId);
-            $coupon->status = false;
             $coupon->user()->associate(Auth::user());
             $coupon->save();
         } else {
