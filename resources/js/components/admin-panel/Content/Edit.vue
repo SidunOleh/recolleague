@@ -496,6 +496,30 @@
 
         </div>
 
+        <div class="section mb-4">
+            
+            <div class="accordion-title h4" @click="open">
+                Addtional
+            </div>
+            
+            <div class="accordion-content">
+
+                <div class="attachment d-flex flex-column align-items-start">
+                    <div class="h6">Image in social media</div>
+                    <img 
+                        class="mb-2"
+                        :src="getAttachmentURI(content.social_media_img)"
+                        v-if="content.social_media_img">
+                    <input  
+                        type="file" 
+                        class="form-control-file"
+                        @change="e => content.social_media_img = e.target.files[0]"/>
+                </div>
+
+            </div>
+
+        </div>
+
         <div class="btn btn-primary" @click="updateContent">
             Edit
         </div>
