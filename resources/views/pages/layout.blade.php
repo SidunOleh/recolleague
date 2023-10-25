@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta property="og:image" content="{{ $content['social_media_img'] ?? '' }}" /> 
+    <meta property="og:image" content="{{ Storage::url($content['social_media_img'] ?? '') }}" /> 
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
