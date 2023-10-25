@@ -27,7 +27,7 @@
                         type="text" 
                         name="uri" 
                         required 
-                        placeholder="Enter your URL" 
+                        placeholder="Enter your Zillow URL" 
                         form="chat-form"
                         value="{{ $uri }}" />
                 </div>

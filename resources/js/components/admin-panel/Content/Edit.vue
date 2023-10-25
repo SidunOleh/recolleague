@@ -499,7 +499,7 @@
         <div class="section mb-4">
             
             <div class="accordion-title h4" @click="open">
-                Addtional
+                Additional
             </div>
             
             <div class="accordion-content">

@@ -17,7 +17,7 @@
                     {{ $content['video_subtitle'] ?? '' }}
                 </p>
                 <form action="{{ route('chat.request') }}" method="GET" id="preview-chat-form">
-                    <input id="NewdomainInput" type="text" name="uri" required placeholder="Enter your URL" />
+                    <input id="NewdomainInput" type="text" name="uri" required placeholder="Enter your Zillow URL" />
                     <button class="btn" type="submit">Generate</button>
                 </form>
             </div>
