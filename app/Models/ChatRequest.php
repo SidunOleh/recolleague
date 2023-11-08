@@ -57,8 +57,6 @@ class ChatRequest extends Model
             throw new ChatRequestException($response['error']['message']);
         }
 
-        var_dump($response);
-
         return preg_replace("/\\\n/", "\n<br>", $response['response']);
     }
 
