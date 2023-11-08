@@ -59,7 +59,7 @@ class ChatRequest extends Model
 
         var_dump($response);
 
-        return preg_replace("/\\\n/", "\n<br>", $response['choices'][0]['message']['content']);
+        return preg_replace("/\\\n/", "\n<br>", $response['response']);
     }
 
     private function request($uri, $style): array
