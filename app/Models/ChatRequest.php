@@ -57,7 +57,7 @@ class ChatRequest extends Model
             throw new ChatRequestException($response['error']['message']);
         }
 
-        return preg_replace("/\\\n/", "\n<br>", $response['response']);
+        return preg_replace("/\\\n/", "\n<br>", $response['choices'][0]['message']['content']);
     }
 
     private function request($uri, $style): array
