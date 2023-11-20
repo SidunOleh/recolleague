@@ -22,30 +22,20 @@ class ZillowParser extends BaseRealEstateParser
 
     private function getBathroomsCount(): int|null
     {
-        $nodeList = $this->parse('.//span[@data-testid="bed-bath-item"]');
-        foreach ($nodeList as $node) {
-            $name = $node->childNodes->item(1)->textContent ?? '';
-            $value = $node->childNodes->item(0)->textContent ?? '';
-            if (trim($name) == 'ba' and is_numeric($value)) {
-                return $value;
-            }
-        }
+        $node = $this->parse('.//script[@id="__NEXT_DATA__"]')->item(0);
+        preg_match('/\\\"bathrooms\\\":(.*?),/', $node->textContent ?? '', $matches);
+        $bathrooms = $matches[1] ?? 0;
 
-        return null;
+        return $bathrooms;
     }
 
     private function getBedroomsCount(): int|null
     {
-        $nodeList = $this->parse('.//span[@data-testid="bed-bath-item"]');
-        foreach ($nodeList as $node) {
-            $name = $node->childNodes->item(1)->textContent ?? '';
-            $value = $node->childNodes->item(0)->textContent ?? '';
-            if (trim($name) == 'bd' and is_numeric($value)) {
-                return $value;
-            }
-        }
+        $node = $this->parse('.//script[@id="__NEXT_DATA__"]')->item(0);
+        preg_match('/\\\"bedrooms\\\":(.*?),/', $node->textContent ?? '', $matches);
+        $bedrooms = $matches[1] ?? 0;
 
-        return null;
+        return $bedrooms;
     }
 
     private function getSchools(): array
@@ -59,7 +49,7 @@ class ZillowParser extends BaseRealEstateParser
 
     private function homeType(): string|null
     {
-        $node = $this->parse('.//ul[@class="dpf__sc-xzpkxd-0 dFxsBL"]/li[1]/span[2]')->item(0);
+        $node = $this->parse('.//ul[@class="hdp__sc-1k8zcpi-0 hrsLgl"]/li[1]/span[3]')->item(0);
         
         return $node->textContent ?? null;
     }
