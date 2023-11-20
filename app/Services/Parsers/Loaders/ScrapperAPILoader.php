@@ -11,7 +11,8 @@ class ScrapperAPILoader implements ILoader
         $url = 'https://api.scraperapi.com?' . http_build_query([
             'api_key' => env('SCRAPPERAPI_KEY'),
             'url' => $url,
-            'render' => 'true',
+            'ultra_premium' => true,
+            // 'render' => 'true',
         ]);
         $response = Http::retry(2)->get($url);
         
