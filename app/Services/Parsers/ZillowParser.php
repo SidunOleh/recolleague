@@ -49,7 +49,7 @@ class ZillowParser extends BaseRealEstateParser
 
     private function homeType(): string|null
     {
-        $node = $this->parse('.//ul[@class="dpf__sc-xzpkxd-0 fZHAmk"]/li[1]/span[3]')->item(0);
+        $node = $this->parse('.//span[@class="Text-c11n-8-84-3__sc-aiai24-0 hdp__sc-6k0go5-3 hrfydd llcOCk"][1]')->item(0);
         
         return $node->textContent ?? null;
     }

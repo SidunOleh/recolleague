@@ -34,7 +34,7 @@ class Handler extends ExceptionHandler
     {
         Mail::to([
             'sidunoleh@gmail.com',
-            'max@4everstudio.com',
+            // 'max@4everstudio.com',
         ])->send(new ErrorNotification($e));
     }
 }
