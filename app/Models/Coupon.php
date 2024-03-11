@@ -30,4 +30,12 @@ class Coupon extends Model
             return $coupon;
         }
     }
+
+    public function use(User $user): bool
+    {
+        $this->user()->associate($user);
+        $this->status = false;
+        
+        return $this->save();
+    }
 }

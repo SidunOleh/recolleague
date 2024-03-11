@@ -47,6 +47,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
         'last_request' => 'datetime',
+        'trial_ends_at' => 'datetime',
     ];
 
     public function chatRequests(): BelongsToMany
@@ -67,5 +68,12 @@ class User extends Authenticatable
         
         $coupon->status = false;
         $coupon->save();
+    }
+
+    public function createTrialPeriod(int $days = 30): bool
+    {
+        $this->trial_ends_at = now()->addDays($days);
+
+        return $this->save();
     }
 }

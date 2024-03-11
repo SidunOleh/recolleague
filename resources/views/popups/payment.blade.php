@@ -18,6 +18,7 @@
                     <a class="text" href="{{ route('auth.logout') }}">logout</a>
                 </p>
             </div>
+
             <div class="pay-method">
                 <div class="text">Accepted cards:</div>
                 <ul class="pay-list">
@@ -35,104 +36,172 @@
                     </li>
                 </ul>
             </div>
-            <div class="pay-form">
-                
-              <form action="{{ route('payment.subscribe') }}" method="POST" id="pay-form">
 
-                    <div id="card-element"></div>
+            <div class="tabs">
+                <div class="tabs__item open" data-tab="pay">
+                    Pay
+                </div>
+                <div class="tabs__item" data-tab="coupon">
+                    Coupon
+                </div>
+            </div>
 
-                    <input id="card-holder-name" type="text" placeholder="Card holder name">
+            <div class="tabs-content">
+                <div class="tabs-content__item open" data-tab-content="pay">
+                    <div class="pay-form">
+                        
+                        <form action="{{ route('payment.subscribe') }}" method="POST" id="pay-form">
+        
+                            <div id="card-element"></div>
+        
+                            <input id="card-holder-name" type="text" placeholder="Card holder name">
+        
+                            <div class="terms">
+                                <input type="checkbox" id="terms" name="terms" required />
+                                <label for="terms">
+                                    I accept the
+                                    <span class="termsService">
+                                        Terms of Service
+                                    </span>
+                                </label>
+                            </div>
+        
+                            <button 
+                                class="btn"
+                                id="card-button" 
+                                data-secret="{{ Auth::check() ? Auth::user()->createSetupIntent()->client_secret : null }}">
+                                Pay
+                            </button>
+        
+                        </form>
+                        
+                        <script src="https://js.stripe.com/v3/"></script>
+                        
+                        <script>
+                            const stripe = Stripe('<?php echo env('STRIPE_KEY') ?>')
 
-                    <div class="coupon">
-                        <input id="coupon" type="text" placeholder="Enter coupon for trial period">
-                    </div>
-
-                    <div class="terms">
-                        <input type="checkbox" id="terms" name="terms" required />
-                        <label for="terms">I accept the
-                          <span class="termsService">Terms of Service</span>
-                        </label>
-                    </div>
-
-                    <button 
-                      class="btn"
-                      id="card-button" 
-                      data-secret="{{ Auth::check() ? Auth::user()->createSetupIntent()->client_secret : null }}">
-                        Pay
-                    </button>
-
-                </form>
-                
-                <script src="https://js.stripe.com/v3/"></script>
-                
-                <script>
-                    const stripe = Stripe('<?php echo env('STRIPE_KEY') ?>')
-
-                    const elements = stripe.elements()
-                    const cardElement = elements.create(
-                        'card',
-                        { 
-                            style: { 
-                                base: {
-                                    lineHeight: '3',
-                                    backgroundColor: '#eee',
-                                },
-                            },
-                        }
-                    )
-                    cardElement.mount('#card-element')
-
-                    const payForm = document.getElementById('pay-form')
-                    let setupIntent = null, 
-                            error = null
-                    payForm.addEventListener('submit', async e => {
-                        e.preventDefault();
-
-                        const card = $('.payCard')
-                        card.addClass('loading')
-
-                        const clientSecret = $('#card-button').attr('data-secret')
-                        const cardHolderName = $('#card-holder-name')
-  
-                        if (! setupIntent) {
-                            const res = await stripe.confirmCardSetup(
-                                clientSecret, 
-                                {
-                                    payment_method: {
-                                        card: cardElement,
-                                        billing_details: {
-                                            name: cardHolderName.val(),
+                            const elements = stripe.elements()
+                            const cardElement = elements.create(
+                                'card',
+                                { 
+                                    style: { 
+                                        base: {
+                                            lineHeight: '3',
+                                            backgroundColor: '#eee',
                                         },
                                     },
                                 }
                             )
-                            setupIntent = res.setupIntent
-                            error = res.error
-                        }
+                            cardElement.mount('#card-element')
 
-                        if (error) {
-                            card.removeClass('loading')
-                        } else {
-                            $.post('/payment/subscribe', {
-                                payment_method_id: setupIntent.payment_method,
-                                _token: '<?php echo csrf_token() ?>',
-                                coupon: $('#coupon').val(),
-                            }).done(res => {
-                                location.href = '/chat'
-                            }).fail(xhr => {
-                                const res = JSON.parse(xhr.responseText)
-                                if (res.error) {
-                                    alert(res.error)
-                                } else {
-                                    alert('Something goes wrong. Try again.')
+                            const payForm = document.getElementById('pay-form')
+                            let setupIntent = null, 
+                                    error = null
+                            payForm.addEventListener('submit', async e => {
+                                e.preventDefault();
+
+                                const tabContent = $('[data-tab-content=pay]')
+                                tabContent.addClass('loading')
+
+                                const clientSecret = $('#card-button').attr('data-secret')
+                                const cardHolderName = $('#card-holder-name')
+            
+                                if (! setupIntent) {
+                                    const res = await stripe.confirmCardSetup(
+                                        clientSecret, 
+                                        {
+                                            payment_method: {
+                                                card: cardElement,
+                                                billing_details: {
+                                                    name: cardHolderName.val(),
+                                                },
+                                            },
+                                        }
+                                    )
+                                    setupIntent = res.setupIntent
+                                    error = res.error
                                 }
-                                
-                                card.removeClass('loading')
-                            })
-                        }
-                    })
-                </script>
 
+                                if (error) {
+                                    tabContent.removeClass('loading')
+                                } else {
+                                    $.post('/payment/subscribe', {
+                                        payment_method_id: setupIntent.payment_method,
+                                        _token: '<?php echo csrf_token() ?>',
+                                    }).done(res => {
+                                        location.href = '/chat'
+                                    }).fail(xhr => {
+                                        const res = JSON.parse(xhr.responseText)
+                                        if (res.error) {
+                                            alert(res.error)
+                                        } else {
+                                            alert('Something goes wrong. Try again.')
+                                        }
+                                        
+                                        tabContent.removeClass('loading')
+                                    })
+                                }
+                            })
+                        </script>
+        
+                    </div>
+                </div>
+                <div class="tabs-content__item" data-tab-content="coupon">
+                    <div class="coupon-form">
+                        
+                        <form action="{{ route('coupons.apply') }}" method="POST" id="coupon-form">
+        
+                            <div class="coupon">
+                                <input id="coupon" type="text" placeholder="Enter coupon for trial period">
+                            </div>
+        
+                            <div class="terms">
+                                <input type="checkbox" id="terms" name="terms" required />
+                                <label for="terms">
+                                    I accept the
+                                    <span class="termsService">
+                                        Terms of Service
+                                    </span>
+                                </label>
+                            </div>
+        
+                            <button 
+                                class="btn"
+                                id="coupon-button">
+                                Apply
+                            </button>
+        
+                        </form>
+                                                
+                        <script>
+                            const couponForm = document.getElementById('coupon-form')
+                            couponForm.addEventListener('submit', async e => {
+                                e.preventDefault();
+
+                                const tabContent = $('[data-tab-content=coupon]')
+
+                                tabContent.addClass('loading')
+
+                                $.post('/coupons/apply', {
+                                    _token: '<?php echo csrf_token() ?>',
+                                    coupon: $('#coupon').val(),
+                                }).done(res => {
+                                    location.href = '/chat'
+                                }).fail(xhr => {
+                                    const res = JSON.parse(xhr.responseText)
+                                    if (res.error) {
+                                        alert(res.error)
+                                    } else {
+                                        alert('Something goes wrong. Try again.')
+                                    }
+                                    
+                                    tabContent.removeClass('loading')
+                                })
+                            })
+                        </script>
+        
+                    </div>
+                </div>
             </div>
         
         </div>

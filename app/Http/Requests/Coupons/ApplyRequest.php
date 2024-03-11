@@ -27,10 +27,7 @@ class ApplyRequest extends FormRequest
             'coupon' => [
                 'required',
                 'string',
-                Rule::exists('coupons')->where(function (Builder $query) {
-                    return $query->where('status', true)
-                        ->where('user_id', null);
-                }),
+                Rule::exists('coupons')->where('status', true),
             ],
         ];
     }

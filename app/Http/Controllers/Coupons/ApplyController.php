@@ -10,19 +10,14 @@ use Illuminate\Support\Facades\Auth;
 
 class ApplyController extends Controller
 {
-    public function __invoke(ApplyRequest $requets)
+    public function __invoke(ApplyRequest $request)
     {
-        $coupon = Coupon::firstWhere(
-            'coupon',
-            $requets->validated()['coupon']
-        );
+        $coupon = Coupon::firstWhere('coupon', $request->input('coupon'));
+        $user = $request->user();
 
-        if (! $coupon) {
-            abort(400);
-        }
-
-        $coupon->user()->associate(Auth::user());
-        $coupon->save();
+        $coupon->use($user);
+        
+        $user->createTrialPeriod();
 
         return response('OK');
     }

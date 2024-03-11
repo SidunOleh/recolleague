@@ -254,22 +254,12 @@ $(document).ready(function() {
             })
     })
 
-    // apply coupon
-    // $('#apply-coupon-btn').click(applyCoupon)
-
-    // function applyCoupon(e) {
-    //     coupon = $('#coupon').val()
-    //     if (!(coupon = $('#coupon').val())) {
-    //         alert('Enter coupon.')
-    //         return
-    //     }
-
-    //     $.post('/coupons/apply', { coupon })
-    //         .then(res => {
-    //             location.href = '/chat'
-    //         })
-    //         .catch(res => {
-    //             alert('Coupon is invalid.')
-    //         })
-    // }
+    // tabs
+    $('.tabs__item').click(e => {
+        const current = $(e.currentTarget)
+        $('.tabs__item').removeClass('open')
+        current.addClass('open')
+        $('.tabs-content__item').removeClass('open')
+        $(`.tabs-content__item[data-tab-content=${current.attr('data-tab')}]`).addClass('open')
+    })
 })

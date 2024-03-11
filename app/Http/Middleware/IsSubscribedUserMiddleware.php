@@ -17,16 +17,14 @@ class IsSubscribedUserMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         if (
-            $user = Auth::user() and
-            ! $user->subscribed('default') and
-            // ! $user->coupons()->where('status', true)->count() and
-            ! $user->is_admin
+            $user = $request->user() and
+            ($user->is_admin or $user->onTrial() or $user->subscribed('default'))
         ) {
-            return $request->ajax() ? 
-                response(['location' => route('pages.home') . '#pay' ]) : 
-                redirect(route('pages.home') . '#pay');
+            return $next($request);
         }
 
-        return $next($request);
+        return $request->ajax() ? 
+            response(['location' => route('pages.home') . '#pay' ]) : 
+            redirect(route('pages.home') . '#pay');
     }
 }

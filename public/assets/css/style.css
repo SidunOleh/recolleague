@@ -1327,7 +1327,7 @@ section {
     margin: 0;
 }
 
-.payWrapper .payCard .left .pay-form .terms {
+.payWrapper .payCard .left .terms {
     text-align: center;
 }
 
@@ -2249,4 +2249,35 @@ section {
     display: block;
     margin-bottom: 10px;
     font-weight: 600;
+}
+
+.tabs-content__item {
+    display: none;
+}
+
+.tabs-content__item.open {
+    display: block;
+}
+
+.tabs {
+    display: flex;
+}
+
+.tabs__item {
+    flex-grow: 1;
+    text-align: center;
+    padding: 10px 5px;
+    border: 2px solid #e11c1c;
+    color: #e11c1c;
+    cursor: pointer;
+}
+
+.tabs__item.open {
+    background-color: #e11c1c;
+    color: white;
+}
+
+#coupon-button {
+    width: 100%;
+    margin-top: 10px;
 }
