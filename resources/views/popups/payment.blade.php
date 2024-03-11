@@ -36,18 +36,17 @@
                     </li>
                 </ul>
             </div>
-
             <div class="tabs">
-                <div class="tabs__item open" data-tab="pay">
-                    Pay
+                <div class="tabs__item open" data-tab="coupon">
+                    Coupon Code
                 </div>
-                <div class="tabs__item" data-tab="coupon">
-                    Coupon
+                <div class="tabs__item" data-tab="pay">
+                    Credit Card
                 </div>
             </div>
 
             <div class="tabs-content">
-                <div class="tabs-content__item open" data-tab-content="pay">
+                <div class="tabs-content__item" data-tab-content="pay">
                     <div class="pay-form">
                         
                         <form action="{{ route('payment.subscribe') }}" method="POST" id="pay-form">
@@ -146,7 +145,7 @@
         
                     </div>
                 </div>
-                <div class="tabs-content__item" data-tab-content="coupon">
+                <div class="tabs-content__item open" data-tab-content="coupon">
                     <div class="coupon-form">
                         
                         <form action="{{ route('coupons.apply') }}" method="POST" id="coupon-form">
