@@ -24,7 +24,7 @@ class IsSubscribedUserMiddleware
         }
 
         return $request->ajax() ? 
-            response(['location' => route('pages.home') . '#pay' ]) : 
+            response(['location' => route('pages.home') . '#pay']) : 
             redirect(route('pages.home') . '#pay');
     }
 }
